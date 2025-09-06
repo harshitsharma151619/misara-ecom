@@ -3,7 +3,7 @@ import React from 'react'
 const Navbar = () => {
   return (
     <div>
-        <div className='w-full h-18 bg-[#ffffff]'> </div>
+        {/* <div className='w-full h-18 bg-[#ffffff]'> </div> */}
         <div className='w-full h-10 bg-[#D973B9] text-center pt-2'>COD AVAILABLE | WORLDWIDE SHIPPING | FREE DELIVERY</div>
         <div className='flex justify-between items-center w-full h-30'> 
             <img src="/misara-logo.jpg" className='h-10 object-contain object-left w-auto min-w-1/5'  alt="" />
