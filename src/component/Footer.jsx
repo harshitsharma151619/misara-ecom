@@ -1,45 +1,97 @@
-import React from "react";
+import {
+  Facebook,
+  Instagram,
+  Twitter,
+  Mail,
+  Phone,
+  MapPin,
+} from "lucide-react";
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer className="bg-gradient-to-b from-[#D9FAF5] to-[#D973B9] text-gray-300 py-8 mt-10">
-      <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
-        
-        {/* Brand Info */}
-        <div>
-          <h2 className="text-xl font-bold text-black mb-3">MyShop</h2>
+    <footer className="bg-gradient-to-r from-pink-100 via-pink-200 to-pink-100 text-gray-800 mt-10">
+      <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
+        {/* Brand */}
+        <div className="text-center">
+          <img
+            src="/transparent_logo.png"
+            alt="Misara Logo"
+            className="h-20 mx-auto mb-4"
+          />
           <p className="text-sm">
-            Your one-stop destination for stylish outfits. 
-            Bringing comfort & fashion together.
+            Discover elegant ethnic wear that blends tradition with modern
+            style. Shop sarees, kurtis, lehengas, and more.
           </p>
         </div>
-
         {/* Quick Links */}
         <div>
-          <h3 className="text-lg font-semibold text-black mb-3">Quick Links</h3>
+          <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
           <ul className="space-y-2 text-sm">
-            <li><a href="#" className=" text-black ">Home</a></li>
-            <li><a href="#" className=" text-black ">About</a></li>
-            <li><a href="#" className=" text-black ">Products</a></li>
-            <li><a href="#" className=" text-black ">Contact</a></li>
+            <li>
+              <a href="#" className="hover:text-pink-700">
+                All Collections
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:text-pink-700">
+                Best Sellers
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:text-pink-700">
+                New Arrivals
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:text-pink-700">
+                Track Order
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:text-pink-700">
+                Exchange Policy
+              </a>
+            </li>
           </ul>
         </div>
 
-        {/* Contact */}
+        {/* Customer Support */}
         <div>
-          <h3 className="text-lg font-semibold text-black mb-3">Contact</h3>
-          <p className="text-sm text-black">📍 New Delhi, India</p>
-          <p className="text-sm text-black">📧 support@myshop.com</p>
-          <p className="text-sm text-black">📞 +91 9876543210</p>
+          <h3 className="text-lg font-semibold mb-4">Customer Support</h3>
+          <ul className="space-y-2 text-sm">
+            <li className="flex items-center gap-2">
+              <Phone size={16} /> +91 98765 43210
+            </li>
+            <li className="flex items-center gap-2">
+              <Mail size={16} /> support@misara.com
+            </li>
+            <li className="flex items-center gap-2">
+              <MapPin size={16} /> Mumbai, India
+            </li>
+          </ul>
+        </div>
+
+        {/* Social Media */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
+          <div className="flex gap-4">
+            <a href="#" className="hover:text-pink-700">
+              <Facebook size={20} />
+            </a>
+            <a href="#" className="hover:text-pink-700">
+              <Instagram size={20} />
+            </a>
+            <a href="#" className="hover:text-pink-700">
+              <Twitter size={20} />
+            </a>
+          </div>
         </div>
       </div>
 
-      {/* Bottom */}
-      <div className="text-center text-sm text-gray-400 mt-6 border-t border-gray-700 pt-4">
-        © {new Date().getFullYear()} MyShop. All rights reserved.
+      {/* Bottom Bar */}
+      <div className="bg-pink-400 text-white text-center py-4 text-sm">
+        © {new Date().getFullYear()} Misara. All Rights Reserved.
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}
