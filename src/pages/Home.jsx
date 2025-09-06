@@ -37,7 +37,7 @@ const Home = () => {
             <img src="/new.webp" alt="" />
         </div>
 
-        <div className= 'grid grid-cols-4 gap-8 w-full h-fit  px-4 '>
+        <div className= 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full h-fit px-4'>
             <div><Card img={newArrivals[0].img}   name={newArrivals[0].name}  price={newArrivals[0].price}  /></div>
             <div><Card img={newArrivals[1].img}   name={newArrivals[1].name}  price={newArrivals[1].price}  /></div>
             <div><Card img={newArrivals[2].img}   name={newArrivals[2].name}  price={newArrivals[2].price}  /></div>
