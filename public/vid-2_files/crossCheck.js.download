@@ -1,0 +1,66 @@
+(function() 
+{
+    function initN9CrossCheck1()
+    {
+        function hasDuplicatesN9_Cross(array) {return (new Set(array)).size !== array.length;}
+
+        var cartProductsN9_Cross = [];for(const cartInfoN9 of cartItemsN9_Cross){cartProductsN9_Cross.push(cartInfoN9.product_id);}
+
+        if(crossDebug)
+        {
+            console.log("[Bundles] cartProductsN9_Cross:");
+            console.log(cartProductsN9_Cross);
+        }
+
+        if(crossDebug)
+        {
+            console.log("[Bundles] n9_cross_discounts (BEFORE):");
+            console.log(n9_cross_discounts);
+        }
+
+
+        const validDiscountsN9_Cross = [];
+        for (const discount_cross of n9_cross_discounts) 
+        {
+            var productIdsListCross = discount_cross.products.split(",").map(Number);
+            productIdsListCross = productIdsListCross.filter(Boolean);
+            if (hasDuplicatesN9_Cross(productIdsListCross)) {continue;}
+            const allProductsInArrayCross = productIdsListCross.every(productId => cartProductsN9_Cross.includes(productId));
+            if (allProductsInArrayCross) {validDiscountsN9_Cross.push(discount_cross);}
+        }
+
+        if(crossDebug)
+        {
+            console.log("[Bundles] validDiscountsN9_Cross:");
+            console.log(validDiscountsN9_Cross);
+        }
+
+        n9_cross_discounts = validDiscountsN9_Cross;
+
+        if(crossDebug)
+        {
+            console.log("[Bundles] n9_cross_discounts (check1 from file):");
+            console.log(n9_cross_discounts);
+        }
+
+        var buildAttributeDiscounts_Cross = [];
+        buildAttributeDiscounts_Cross.push(['n9_bundle_discounts', JSON.stringify(n9_cross_discounts)]);
+        buildAttribute_Cross = arr2obj_upd_cross(buildAttributeDiscounts_Cross);
+        var headers_Cross = new Headers({'Content-Type': 'application/json'});
+        var bodyRequest_Cross = JSON.stringify({attributes: buildAttribute_Cross});
+        var request_Cross = {method: 'POST',headers: headers_Cross,body: bodyRequest_Cross};
+        fetch(window.Shopify.routes.root + 'cart/update.js', request_Cross).then(function () { });
+    }
+
+    if (document.readyState !== 'loading') 
+    {
+        initN9CrossCheck1();
+    } 
+    else 
+    {
+        document.addEventListener('DOMContentLoaded', function () 
+        {
+            initN9CrossCheck1();
+        });
+    }
+})();

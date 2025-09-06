@@ -1,0 +1,149 @@
+(function() 
+{
+    function initN9UpsellsCheck1()
+    {
+        /*function productsExists(arr, products){return arr.some(function(el) {return el.products === products;}); }*/
+        function hasDuplicatesN9(array) {return (new Set(array)).size !== array.length;}
+
+
+        // CHECK FOR CART ITEMS (discounts array check)
+        var cartProductsN9 = [];for(const cartInfoN9 of cartItemsN9){cartProductsN9.push(cartInfoN9.product_id);}
+
+        if(upsellsDebug)
+        {
+            console.log("[Bundles] cartProductsN9:");
+            console.log(cartProductsN9);
+        }
+
+        if(upsellsDebug)
+        {
+            console.log("[Bundles] n9_bundle_discounts (BEFORE):");
+            console.log(n9_bundle_discounts);
+        }
+
+
+        const validDiscountsN9 = [];
+        for (const discount of n9_bundle_discounts) 
+        {
+            var productIdsList = discount.products.split(",").map(Number);
+            productIdsList = productIdsList.filter(Boolean);
+            if (hasDuplicatesN9(productIdsList)) {continue;}
+            const allProductsInArray = productIdsList.every(productId => cartProductsN9.includes(productId));
+            if (allProductsInArray) {validDiscountsN9.push(discount);}
+        }
+
+        if(upsellsDebug)
+        {
+            console.log("[Bundles] validDiscountsN9:");
+            console.log(validDiscountsN9);
+        }
+
+        n9_bundle_discounts = validDiscountsN9;
+
+        if(upsellsDebug)
+        {
+            console.log("[Bundles] n9_bundle_discounts (check1 from file):");
+            console.log(n9_bundle_discounts);
+        }
+
+        var buildAttributeDiscounts = [];
+        buildAttributeDiscounts.push(['n9_bundle_discounts', JSON.stringify(n9_bundle_discounts)]);
+        buildAttribute = arr2obj_upd(buildAttributeDiscounts);
+        var headers = new Headers({'Content-Type': 'application/json'});
+        var bodyRequest = JSON.stringify({attributes: buildAttribute});
+        var request = {method: 'POST',headers: headers,body: bodyRequest};
+        fetch(window.Shopify.routes.root + 'cart/update.js', request).then(function () { });
+
+
+
+
+
+
+        // Additional check - for offer update (discount update or something else)
+        if(n9_upsell_handles.length)
+        {
+            if(window.productsInThisBundle)
+            {
+                if(upsellsDebug)
+                {
+                    console.log("[Bundles] productsInThisBundle: true");
+                    console.log("[Bundles] Checking...");
+                    console.log("[Bundles] productsInThisBundle");
+                    console.log(window.productsInThisBundle);
+                }
+
+                var checkN9Obj = {products: window.productsInThisBundle, discountValue: 0, discountType: '0'};
+                var isFoundN9Obj = isObjectInArrayN9(checkN9Obj,n9_bundle_discounts);
+                
+                if(isFoundN9Obj)
+                {
+                    if(window.discountStatus == '1')
+                    {
+                        if(upsellsDebug)
+                        {
+                            console.log("[Bundles] isFoundN9Obj: true");
+                            console.log("[Bundles] Updating in discount object");
+                        }
+
+                        var discountTypeDiscounts = '1';
+                        var discountValueDiscounts = endDiscountVal;
+                        if(endDiscountType == '1')
+                        {
+                            discountTypeDiscounts = '0';
+                            discountValueDiscounts = endDiscountVal;
+                        }
+                        else if(endDiscountType == '0')
+                        {
+                            discountTypeDiscounts = '1';
+                            discountValueDiscounts = endDiscountVal * 100;
+                        }
+
+                        var updateN9Obj = {products: window.productsInThisBundle, discountValue: discountValueDiscounts, discountType: discountTypeDiscounts};
+                        addN9BundleDiscountObject(updateN9Obj, n9_bundle_discounts);
+                    }
+                    else
+                    {
+                        if(upsellsDebug)
+                        {
+                            console.log("[Bundles] isFoundN9Obj: true");
+                            console.log("[Bundles] Removing from discount object");
+                        }
+
+                        var removeN9Obj = {products: window.productsInThisBundle, discountValue: 0, discountType: '0'};
+                        var removeN9DiscountStatus = removeN9BundleDiscountObject(removeN9Obj, n9_bundle_discounts);
+                    }
+
+                    if(upsellsDebug)
+                    {
+                        console.log("[Bundles] n9_bundle_discounts (check2 from file)");
+                        console.log(n9_bundle_discounts);
+                    }
+
+                    setTimeout(() => 
+                    {
+                        var buildAttributeDiscounts = [];
+                        buildAttributeDiscounts.push(['n9_bundle_discounts', JSON.stringify(n9_bundle_discounts)]);
+                        buildAttribute = arr2obj_upd(buildAttributeDiscounts);
+                        var headers = new Headers({'Content-Type': 'application/json'});
+                        var bodyRequest = JSON.stringify({attributes: buildAttribute});
+                        var request = {method: 'POST',headers: headers,body: bodyRequest};
+                        fetch(window.Shopify.routes.root + 'cart/update.js', request).then(function () { });
+                    }, 2000);
+                }
+            }
+        }
+
+    }
+
+    if (document.readyState !== 'loading') 
+    {
+        initN9UpsellsCheck1();
+    } 
+    else 
+    {
+        document.addEventListener('DOMContentLoaded', function () 
+        {
+            initN9UpsellsCheck1();
+        });
+    }
+})();

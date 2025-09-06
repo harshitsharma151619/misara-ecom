@@ -1,0 +1,67 @@
+(function() 
+{
+    function initN9QBreaksCheck1()
+    {
+        var cartProductsN9_QBreaks = [];
+        for(const cartInfoN9 of cartItemsN9_QBreaks){cartProductsN9_QBreaks.push(cartInfoN9.product_id);}
+
+        if(qBreaksDebug)
+        {
+            console.log('[qBreaks] cartProductsN9_QBreaks:');
+            console.log(cartProductsN9_QBreaks);
+        }
+
+        const validDiscountsN9_QBreaks = [];
+        for (const item of n9_volume_discounts) 
+        {
+            const productId = item.productId;
+
+            // Check if the productId is in cartProductsN9_QBreaks array
+            if (cartProductsN9_QBreaks.includes(Number(productId))) 
+            {
+                // Check if this productId has already been added to validDiscountsN9_QBreaks
+                if (!validDiscountsN9_QBreaks.some(validItem => validItem.productId === productId)) 
+                {
+                    validDiscountsN9_QBreaks.push(item);
+                }
+            }
+        }
+
+        if(qBreaksDebug)
+        {
+            console.log('[qBreaks] validDiscountsN9_QBreaks:');
+            console.log(validDiscountsN9_QBreaks);
+        }
+
+        // Update the global array
+        n9_volume_discounts = validDiscountsN9_QBreaks;
+
+        // Update the cart attribute
+        var buildAttributeDiscountsQBreaks = [];
+        buildAttributeDiscountsQBreaks.push(['n9_volume_discounts', JSON.stringify(n9_volume_discounts)]);
+        var buildAttribute = arr2obj_N9_QBreaks(buildAttributeDiscountsQBreaks);
+        var headers = new Headers({'Content-Type': 'application/json'});
+        var bodyRequest = JSON.stringify({attributes: buildAttribute});
+
+        if(qBreaksDebug)
+        {
+            console.log('[qBreaks] bodyRequest in Check1:');
+            console.log(bodyRequest);
+        }
+
+        var request = {method: 'POST',headers: headers,body: bodyRequest};
+        fetch(window.Shopify.routes.root + 'cart/update.js', request).then(function () { });
+    }
+
+    if (document.readyState !== 'loading') 
+    {
+        initN9QBreaksCheck1();
+    } 
+    else 
+    {
+        document.addEventListener('DOMContentLoaded', function () 
+        {
+            initN9QBreaksCheck1();
+        });
+    }
+})();

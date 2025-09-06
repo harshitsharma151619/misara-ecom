@@ -1,0 +1,1 @@
+(()=>{var a=window.Shopify?.shop;if(!window.renderTazohCollectionBlocks){var b=document.currentScript,c=b.src.substring(0,b.src.lastIndexOf('/')+1),d=`${c}main.js`,e=document.querySelectorAll('script[src]');for(const A of e)if(A.src===d)return;var f=document.createElement('script');f.defer=!0;f.src=d;f.type='text/javascript';document.head.appendChild(f)}})();
