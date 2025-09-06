@@ -3,26 +3,29 @@ import React from "react";
 const Navbar = () => {
   return (
     <div>
-      <div className="w-full h-10 bg-[#D973B9] text-center pt-2">
+      {/* Announcement Bar */}
+      <div className="w-full h-10 bg-[#D973B9] text-center text-xs sm:text-sm md:text-base pt-2 font-medium text-white">
         COD AVAILABLE | WORLDWIDE SHIPPING | FREE DELIVERY
       </div>
-      <div className="flex justify-between items-center w-full h-30 ">
-        <a href="/" className="inline-block cursor-pointer">
+
+      {/* Navbar Container */}
+      <div className="flex flex-wrap items-center justify-between w-full px-4 sm:px-6 lg:px-12 py-4 gap-4">
+        {/* Logo */}
+        <a href="/" className="flex-shrink-0">
           <img
             src="/misara-logo.jpg"
             alt="Misara Logo"
-            className="h-16 mx-auto ml-8 mb-4 object-contain object-left w-auto min-w-1/5"
+            className="h-12 sm:h-14 md:h-16 object-contain"
           />
         </a>
-        <div className="flex w-80 items-center border border-gray-400 rounded-full overflow-hidden shadow-sm">
-          {/* Input */}
+
+        {/* Search Bar */}
+        <div className="flex flex-grow max-w-lg w-full sm:w-80 items-center border border-gray-400 rounded-full overflow-hidden shadow-sm">
           <input
             className="flex-grow px-4 py-2 text-sm focus:outline-none"
             type="text"
             placeholder="Search here..."
           />
-
-          {/* Search Button */}
           <button className="bg-[#D973B9] hover:bg-[#c05d9c] transition-colors duration-300 px-3 py-2 flex items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +44,8 @@ const Navbar = () => {
           </button>
         </div>
 
-        <div className="flex w-1/5 items-center justify-end gap-6 p-10">
+        {/* Icons Section */}
+        <div className="flex items-center justify-end gap-4 sm:gap-6 w-full sm:w-auto">
           {/* User Icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +53,7 @@ const Navbar = () => {
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="currentColor"
-            className="w-7 h-7 cursor-pointer transition-transform transform hover:scale-110 hover:text-pink-600"
+            className="w-6 h-6 sm:w-7 sm:h-7 cursor-pointer transition-transform hover:scale-110 hover:text-pink-600"
           >
             <path
               strokeLinecap="round"
@@ -66,7 +70,7 @@ const Navbar = () => {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="w-7 h-7 cursor-pointer transition-transform transform hover:scale-110 hover:text-pink-600"
+              className="w-6 h-6 sm:w-7 sm:h-7 cursor-pointer transition-transform hover:scale-110 hover:text-pink-600"
             >
               <path
                 strokeLinecap="round"
@@ -86,7 +90,7 @@ const Navbar = () => {
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="currentColor"
-            className="w-7 h-7 cursor-pointer transition-transform transform hover:scale-110 hover:text-pink-600"
+            className="w-6 h-6 sm:w-7 sm:h-7 cursor-pointer transition-transform hover:scale-110 hover:text-pink-600"
           >
             <path
               strokeLinecap="round"
